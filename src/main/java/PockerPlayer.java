@@ -9,8 +9,17 @@ public class PockerPlayer {
     public String city;
     public String address;
     public String phone;
+    public String password;
 
-    public PockerPlayer(String userName,String email, String firstName, String lastName, String city, String address, String phone) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public PockerPlayer(String userName, String password, String email, String firstName, String lastName, String city, String address, String phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,6 +27,7 @@ public class PockerPlayer {
         this.address = address;
         this.phone = phone;
         this.userName=userName;
+        this.password=password;
     }
 
     @Override
