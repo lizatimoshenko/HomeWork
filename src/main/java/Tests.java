@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Liza on 25.11.2016.
  */
-public class LoginTests {
+public class Tests {
     public static final String USERNAME= RandomStringUtils.randomAlphabetic(8);
     public static final String EMAIL =RandomStringUtils.randomAlphabetic(5) + "@test.com";
     public static final String FIRSTNAME = RandomStringUtils.randomAlphabetic(5);
@@ -43,6 +43,7 @@ public class LoginTests {
 
 
 
+
     public static void main(String[] args) {
 
         WebDriver driver = new FirefoxDriver();
@@ -59,43 +60,38 @@ public class LoginTests {
         loginButton.click();
 
 
-        /*WebElement insertLink = driver.findElement(By.xpath(insertLinkID));
+        WebElement insertLink = driver.findElement(By.xpath(inserLinkID));
         insertLink.click();
 
-
-
         PockerPlayer player = new PockerPlayer(USERNAME,PASSWORD,EMAIL,FIRSTNAME,LASTNAME,CITY,ADDRESS,PHONE);
+
+
         createUser(player,driver);
-        /*
+
         String expectedTitle="Players";
         String actualTitle=driver.getTitle();
         assertText(actualTitle, expectedTitle);
-        */
+
+
         WebElement searchUserName = driver.findElement(By.xpath(searchByUserNameID));
-        //searchUserName.sendKeys(player.getUserName());
-
-        /* for existed user in the table */
-        String userName ="user151";
-        searchUserName.sendKeys(userName);
-
+        searchUserName.sendKeys(player.getUserName());
 
         WebElement searchButton = driver.findElement(By.xpath(searchButtonID));
         searchButton.click();
 
         /*How to write this xpath like a constant ?*/
-        driver.findElement(By.xpath(".//tr[.//a[text()='" + userName + "']]//img[@title='Edit']")).click();
-        edit(driver);
+        driver.findElement(By.xpath(".//tr[.//a[text()='" + player.getUserName() + "']]//img[@title='Edit']")).click();
 
-        //checkData(player,driver);
+        checkData(player,driver);
 
-        //editUser(player,driver);
+        driver.findElement(By.xpath(".//tr[.//a[text()='" + player.getUserName() + "']]//img[@title='Edit']")).click();
+        editUser(player,driver);
 
-
-
-        /*checkData(player,driver);
-
-
-        driver.quit();*/
+        driver.findElement(By.xpath(".//tr[.//a[text()='" + player.getUserName() + "']]//img[@title='Edit']")).click();
+        checkData(player,driver);
+        System.out.println("Test finished");
+        
+        /*driver.quit();*/
     }
 
     public static void assertText(String actualValue, String expectedValue) {
@@ -140,123 +136,96 @@ public class LoginTests {
         WebElement saveButton = driver.findElement(By.xpath(saveButtonID));
         saveButton.click();
 
-        /*
-        * WebElement country = driver.findElement(By.xpath("//select/option[@value='?']"));
+        /* ??????
+        * WebElement country = driver.findElement(By.xpath("//select/option[@value='?????']"));
         * country.click();
         */
 
     }
-    public static void checkData(PockerPlayer obj,WebDriver driver){
+    public static void checkData(PockerPlayer player,WebDriver driver){
 
-        WebElement email = driver.findElement(By.xpath("ADD LATER "));
-        String actualEmail=email.getText();
-        String expectedEmail=obj.getEmail();
+        WebElement email = driver.findElement(By.xpath(emailInputID));
+        String actualEmail = email.getAttribute("value");
+        String expectedEmail=player.getEmail();
         assertText(actualEmail,expectedEmail);
 
-        WebElement firstName = driver.findElement(By.xpath("ADD LATER "));
-        String actualFirstName=firstName.getText();
-        String expectedFirstName=obj.getFirstName();
+
+        WebElement firstName = driver.findElement(By.xpath(fnameInputID));
+        String actualFirstName=firstName.getAttribute("value");
+        String expectedFirstName=player.getFirstName();
         assertText(actualFirstName,expectedFirstName);
 
-        WebElement lastName = driver.findElement(By.xpath("ADD LATER "));
-        String actualLastName=lastName.getText();
-        String expectedLastName=obj.getLastName();
+
+        WebElement lastName = driver.findElement(By.xpath(lnameInputID));
+        String actualLastName=lastName.getAttribute("value");
+        String expectedLastName=player.getLastName();
         assertText(actualLastName,expectedLastName);
 
-        WebElement city = driver.findElement(By.xpath("ADD LATER "));
-        String actualCity=city.getText();
-        String expectedCity=obj.getCity();
+
+        WebElement city = driver.findElement(By.xpath(cityInputID));
+        String actualCity=city.getAttribute("value");
+        String expectedCity=player.getCity();
         assertText(actualCity,expectedCity);
 
-
-        /*
-        *check country ???
-        */
-
-        WebElement address = driver.findElement(By.xpath("ADD LATER "));
-        String actualAddress=address.getText();
-        String expectedAddress=obj.getAddress();
+        WebElement address = driver.findElement(By.xpath(addressTextAreaID));
+        String actualAddress=address.getAttribute("value");
+        String expectedAddress=player.getAddress();
         assertText(actualAddress,expectedAddress);
 
-        WebElement phone = driver.findElement(By.xpath("ADD LATER "));
-        String actualPhone=phone.getText();
-        String expectedPhone=obj.getPhone();
+        System.out.println("phone:");
+        WebElement phone = driver.findElement(By.xpath(phoneInputID));
+        String actualPhone=phone.getAttribute("value");
+        String expectedPhone=player.getPhone();
         assertText(actualPhone,expectedPhone);
+
+        WebElement saveButton = driver.findElement(By.xpath(saveButtonID));
+        saveButton.click();
+
+
     }
 
     public static void editUser(PockerPlayer obj,WebDriver driver){
 
         WebElement email = driver.findElement(By.xpath(emailInputID));
         String newEmail = RandomStringUtils.randomAlphabetic(5) + "@test.com";
+        email.clear();
         obj.setEmail(newEmail);
         email.sendKeys(obj.getEmail());
 
         WebElement firstName = driver.findElement(By.xpath(fnameInputID));
+        firstName.clear();
         String newFirstName =  RandomStringUtils.randomAlphabetic(5);
         obj.setFirstName(newFirstName);
         firstName.sendKeys(obj.getFirstName());
 
         WebElement lastName = driver.findElement(By.xpath(lnameInputID));
+        lastName.clear();
         String newLastName =  RandomStringUtils.randomAlphabetic(5);
         obj.setLastName(newLastName);
         lastName.sendKeys(obj.getLastName());
 
         WebElement city = driver.findElement(By.xpath(cityInputID));
+        city.clear();
         String newCity = RandomStringUtils.randomAlphabetic(10);
         obj.setCity(newCity);
         city.sendKeys(obj.getCity());
 
 
         WebElement address = driver.findElement(By.xpath(addressTextAreaID));
+        address.clear();
         String newAddress = RandomStringUtils.randomAlphabetic(20);
         obj.setAddress(newAddress);
         address.sendKeys(obj.getAddress());
 
         WebElement phone = driver.findElement(By.xpath(phoneInputID));
+        phone.clear();
         String newPhone = RandomStringUtils.randomNumeric(10);
         obj.setPhone(newPhone);
         phone.sendKeys(obj.getPhone());
-
-        WebElement saveButton = driver.findElement(By.id(saveButtonID));
-        saveButton.click();
-
-    }
-     /*edit user version for user that exists in the table */
-    public static void edit(WebDriver driver){
-
-        WebElement email = driver.findElement(By.xpath(emailInputID));
-        String newEmail = RandomStringUtils.randomAlphabetic(5) + "@test.com";
-        email.clear();
-        email.sendKeys(newEmail);
-
-        WebElement firstName = driver.findElement(By.xpath(fnameInputID));
-        String newFirstName =  RandomStringUtils.randomAlphabetic(5);
-        firstName.clear();
-        firstName.sendKeys(newFirstName);
-
-        WebElement lastName = driver.findElement(By.xpath(lnameInputID));
-        String newLastName =  RandomStringUtils.randomAlphabetic(5);
-        lastName.clear();
-        lastName.sendKeys(newLastName);
-
-        WebElement city = driver.findElement(By.xpath(cityInputID));
-        String newCity = RandomStringUtils.randomAlphabetic(10);
-        city.clear();
-        city.sendKeys(newCity);
-
-
-        WebElement address = driver.findElement(By.xpath(addressTextAreaID));
-        String newAddress = RandomStringUtils.randomAlphabetic(20);
-        address.clear();
-        address.sendKeys(newAddress);
-
-        WebElement phone = driver.findElement(By.xpath(phoneInputID));
-        String newPhone = RandomStringUtils.randomNumeric(10);
-        phone.clear();
-        phone.sendKeys(newPhone);
 
         WebElement saveButton = driver.findElement(By.xpath(saveButtonID));
         saveButton.click();
 
     }
+
 }
