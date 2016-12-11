@@ -3,6 +3,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,7 +15,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 
 public class PlayersPage {
-   protected WebDriver driver;
+
+
+
+
+    protected WebDriver driver;
 
     public PlayersPage(WebDriver driver) {
         this.driver =driver;

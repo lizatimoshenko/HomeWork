@@ -90,7 +90,7 @@ public class Tests {
         driver.findElement(By.xpath(".//tr[.//a[text()='" + player.getUserName() + "']]//img[@title='Edit']")).click();
         checkData(player,driver);
         System.out.println("Test finished");
-        
+
         /*driver.quit();*/
     }
 

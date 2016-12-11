@@ -1,0 +1,66 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="PokerSuite" verbose="1" >
+    <test name="Positive Login Tests" >
+        <classes>
+            <class name="practice4.tests.LoginTests">
+                <methods>
+                  <include name="positiveLoginTest"/>
+               </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Negative Login Tests" >
+        <parameter name="myUserName" value="Vasya"/>
+        <parameter name="myPassword" value="12121"/>
+        <parameter name="myErrorMessage" value="Invalid username or password"/>
+        <classes>
+            <class name="practice4.tests.LoginTests" >
+            <methods>
+                <exclude name="positiveLoginTest"/>
+            </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="CRUD User Operations">
+        <classes>
+            <class name="practice4.tests.CRUDUserTests">
+            </class>
+        </classes>
+    </test>
+
+    <test name="Search User By UserName Tests(not existing user)" >
+        <parameter name="username" value="ugh855s"/>
+        <classes>
+            <class name="practice4.tests.SearchTests" >
+                <methods>
+                    <include name="searchByUserName"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Search User By UserName Tests(existing user)" >
+        <parameter name="username" value="user1000"/>
+        <classes>
+            <class name="practice4.tests.SearchTests" >
+                <methods>
+                    <include name="searchByUserName"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Search User By Email Tests" >
+        <classes>
+            <class name="practice4.tests.SearchTests" >
+                <methods>
+                    <include name="searchByEmail"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
